@@ -53,12 +53,13 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/SwarmFoundry-v0.9.0-Chromebook.loader.js";
+      var release = "20260922-density-fix";
+      var loaderUrl = buildUrl + "/SwarmFoundry-v0.9.0-Chromebook.loader.js?v=" + release;
       var config = {
         arguments: [],
-        dataUrl: buildUrl + "/SwarmFoundry-v0.9.0-Chromebook.data.unityweb",
-        frameworkUrl: buildUrl + "/SwarmFoundry-v0.9.0-Chromebook.framework.js.unityweb",
-        codeUrl: buildUrl + "/SwarmFoundry-v0.9.0-Chromebook.wasm.unityweb",
+        dataUrl: buildUrl + "/SwarmFoundry-v0.9.0-Chromebook.data.unityweb?v=" + release,
+        frameworkUrl: buildUrl + "/SwarmFoundry-v0.9.0-Chromebook.framework.js.unityweb?v=" + release,
+        codeUrl: buildUrl + "/SwarmFoundry-v0.9.0-Chromebook.wasm.unityweb?v=" + release,
         streamingAssetsUrl: "StreamingAssets",
         companyName: "Independent Prototype",
         productName: "Swarm Foundry",
