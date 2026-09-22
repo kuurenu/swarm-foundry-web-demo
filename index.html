@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no">
     <title>Unity Web Player | Swarm Foundry</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
-    <link rel="stylesheet" href="TemplateData/style.css">
+    <link rel="stylesheet" href="TemplateData/style.css?v=20260922-fullscreen-1">
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
@@ -20,10 +20,11 @@
       <div id="unity-warning"> </div>
       <div id="unity-footer">
         <div id="unity-logo-title-footer"></div>
-        <div id="unity-fullscreen-button"></div>
+        <button id="unity-fullscreen-button" type="button" aria-label="画面を広げる" aria-pressed="false" title="画面を広げる"></button>
         <div id="unity-build-title">Swarm Foundry</div>
       </div>
     </div>
+    <script src="TemplateData/viewport.js?v=20260922-fullscreen-1"></script>
     <script>
       var canvas = document.querySelector("#unity-canvas");
 
@@ -93,25 +94,7 @@
       // template forced a 960x600 landscape surface on desktop, causing world-space
       // upgrade labels to scale far beyond their intended size. Keep the rendering
       // surface portrait and fit the whole game into the available browser area.
-      var container = document.querySelector("#unity-container");
-      var footer = document.querySelector("#unity-footer");
-      function fitPortraitCanvas() {
-        var footerHeight = document.fullscreenElement ? 0 : 38;
-        var margin = document.fullscreenElement ? 0 : 16;
-        var availableWidth = Math.max(1, window.innerWidth - margin * 2);
-        var availableHeight = Math.max(1, window.innerHeight - footerHeight - margin * 2);
-        var scale = Math.min(availableWidth / 540, availableHeight / 960, 1);
-        var width = Math.max(1, Math.floor(540 * scale));
-        var height = Math.max(1, Math.floor(960 * scale));
-        canvas.style.width = width + "px";
-        canvas.style.height = height + "px";
-        container.style.width = width + "px";
-        container.style.height = (height + footerHeight) + "px";
-        footer.style.width = width + "px";
-      }
-      fitPortraitCanvas();
-      window.addEventListener("resize", fitPortraitCanvas);
-      document.addEventListener("fullscreenchange", fitPortraitCanvas);
+      window.setupSwarmViewport(window, document);
 
       document.querySelector("#unity-loading-bar").style.display = "block";
 
@@ -122,10 +105,6 @@
           document.querySelector("#unity-progress-bar-full").style.width = 100 * progress + "%";
               }).then((unityInstance) => {
                 document.querySelector("#unity-loading-bar").style.display = "none";
-                document.querySelector("#unity-fullscreen-button").onclick = () => {
-                  if (document.fullscreenElement) document.exitFullscreen();
-                  else container.requestFullscreen();
-                };
 
               }).catch((message) => {
                 alert(message);

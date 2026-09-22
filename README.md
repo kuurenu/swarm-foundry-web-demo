@@ -14,3 +14,17 @@ Progress is stored in that browser's local site storage. Clearing site data or u
 
 Build: `0.9.0`
 
+## Browser fullscreen compatibility (2026-09-22)
+
+The expand button uses native fullscreen only when available. Browsers without
+the API (including the reported iPhone browser), or browsers that reject the
+request, expand within the page instead. Browser address/navigation bars may
+remain visible. The same button restores the original layout without reloading
+the game. Portrait aspect ratio and the exit control are retained in both modes.
+
+Run regression checks with `node --test tests/viewport.test.cjs`.
+The nine checks cover missing/disabled APIs, synchronous and asynchronous
+failures, standard/WebKit entry and exit, repeated clicks, and viewport changes.
+A local browser run with both fullscreen entry APIs removed confirmed continued
+combat and repeated expand/restore at phone-sized viewport, with no console errors.
+Physical iPhone verification remains separate from desktop emulation.
